@@ -20,6 +20,8 @@ app.use(cookieParser())
 //Routes
 app.use('/auth', require('./routes/auth/auth'))
 app.use('/register', require('./routes/auth/register'))
+
+app.use('/patient', require('./routes/api/patient'))
 app.use(verifyJWT)
 app.use('/hospitals', require('./routes/api/hospital'))
 app.use('/staff', require('./routes/api/staff'))

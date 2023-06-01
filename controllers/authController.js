@@ -81,7 +81,7 @@ const loginPatient = async (req, res) => {
     if (!email || !password) return res.status(400).json({ "message": "Email and Passwords are missing" })
 
     const patient = await Patient.findOne({ email }).exec()
-    if (!patient) return res.status(404).json({ "message": "Staff not found" })
+    if (!patient) return res.status(404).json({ "message": "Patient not found" })
 
     const matchPassword = await bcrypt.compare(password, patient.password)
     if (!matchPassword) return res.status(401).json({ "message": "Invalid Credentials" })

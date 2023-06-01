@@ -11,11 +11,11 @@ const patientSchema = new Schema({
     gender: { type: String },
     date_of_birth: { type: Date },
     date_added: { type: Date, default: Date.now, required: true },
-    location: { type: String, required: true },
+    location: { type: String },
     is_superuser: { type: Boolean, required: true, default: false },
-    doctor_list: { type: Map, of: String, required: true },
-    hospital_list: { type: Map, of: String, required: true },
-    health_status: { type: String, required: true },
+    doctor_list: [{ type: String }],
+    hospital_list: [{ type: String }],
+    health_status: { type: String, required: true, default: "Healthy" },
     updated_at: { type: Date }
 })
 

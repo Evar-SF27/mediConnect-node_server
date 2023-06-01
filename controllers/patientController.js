@@ -2,7 +2,7 @@ const Patient = require('../models/Patient')
 
 const getPatient = async (req, res) => {
     const patient = await Patient.find()
-    res.status(200).json({ "message": doctor })
+    res.status(200).json({ "message": patient })
 }
 
 const getPatientById = async (req, res) => {
