@@ -3,10 +3,10 @@ const Schema = mongoose.Schema
 
 const hospitalSchema = new Schema({
     hospital_name: { type: String, required: true, unique: true },
-    patient_list: { type: Map, of: String },
-    doctor_list: { type: Map, of: String },
-    staff_list: { type: Map, of: String },
-    admin_list: { type: Map, of: String },
+    patient_list: [{ type: String }],
+    doctor_list: [{ type: String }],
+    staff_list: [{ type: String }],
+    admin_list: [{ type: String }],
     location: { type: String, required: true },
     description: { type: String },
     rating: { type: String },

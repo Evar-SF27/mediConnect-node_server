@@ -1,4 +1,4 @@
-const Hospital = require('../models/Hospital')
+const Hospital = require('../models/Hospital')  
 
 const fetchHospitals = async (req, res) => {
     const hospitals = await Hospital.find()
