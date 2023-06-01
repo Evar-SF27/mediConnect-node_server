@@ -50,7 +50,7 @@ const deleteDoctor = async (req, res) => {
     hospital.doctor_list = doctor_list
     await hospital.save()
 
-    await Doctor.deleteOne()
+    await doctor.deleteOne()
     res.status(200).json({ "message": "Doctor was successfully deleted" })
 }
 

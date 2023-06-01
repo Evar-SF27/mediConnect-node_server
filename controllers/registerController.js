@@ -1,6 +1,7 @@
 const { Types } = require('mongoose')
 const Doctor = require('../models/Doctor')
 const Hospital = require('../models/Hospital')
+const Patient = require('../models/Patient')
 const bcrypt = require('bcrypt')
 
 const registerDoctor = async (req, res) => {
@@ -67,6 +68,25 @@ const registerStaff = async (req, res) => {
     }
 }
 
-const registerPatient = async (req, res) => {}
+const registerPatient = async (req, res) => {
+    const { email, password } = req.body
+    if (!email || !password ) return res.status(400).json({ "message": "Some required information is missing" })
+    
+    const duplicatePatient = await Patient.findOne({ email }).exec()
+    if (duplicatePatient) return res.status(409).json({ "message": "Patient already exists" })
+
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10)
+        const result = await Patient.create({
+            "email": email,
+            "password": hashedPassword,
+        })
+
+        res.status(201).json(result)
+        
+    } catch (err) {
+        res.status(500).json({ "message": err.message })
+    }
+}
 
 module.exports = { registerStaff, registerDoctor, registerPatient }
