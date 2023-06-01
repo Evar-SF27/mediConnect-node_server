@@ -59,6 +59,7 @@ const updateStaff = async (req, res) => {
     if (req.body?.first_name) staff.first_name = req.body?.first_name
     if (req.body?.last_name) staff.last_name = req.body?.last_name
     if (req.body?.title) staff.title = req.body?.title
+    if (req.body?.gender) staff.gender = req.body?.gender
     if (req.body?.email) staff.email = req.body?.email
     if (req.body?.staff_name) staff.staff_name = req.body?.staff_name
     if (req.body?.qualification) staff.qualification = req.body?.qualification

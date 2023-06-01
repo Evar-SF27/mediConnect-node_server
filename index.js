@@ -20,6 +20,7 @@ app.use(cookieParser())
 //Routes
 app.use('/hospitals', require('./routes/api/hospital'))
 app.use('/staff', require('./routes/api/staff'))
+app.use('/doctor', require('./routes/api/doctor'))
 
 mongoose.connection.once('open', () => {
     console.log(`Connected to MongoDB`)
