@@ -4,7 +4,6 @@ const doctorController =  require('../../controllers/doctorController')
 
 router.route("/")
     .get(doctorController.getDoctor)
-    .post(doctorController.registerDoctor)
     .put(doctorController.updateDoctor)
     .delete(doctorController.deleteDoctor)
 

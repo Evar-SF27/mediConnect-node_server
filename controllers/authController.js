@@ -1,6 +1,8 @@
 const Staff = require('../models/Staff')
 const Doctor = require('../models/Doctor')
 const Patient = require('../models/Patient')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const loginStaff = async (req, res) => {
     const { email, password } = req.body
@@ -14,8 +16,8 @@ const loginStaff = async (req, res) => {
 
     const accessToken = jwt.sign(
         {
-            "staff_info": {
-                "staff_id": staff._id,
+            "info": {
+                "id": staff._id,
                 "email": staff.email,
                 "role": staff.role,
                 "is_admin": staff.is_admin
@@ -26,7 +28,7 @@ const loginStaff = async (req, res) => {
     )
 
     const refreshToken = jwt.sign(
-        { "staff_id": staff._id },
+        { "id": staff._id },
         process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: '1d'}
     )
@@ -51,8 +53,8 @@ const loginDoctor = async (req, res) => {
 
     const accessToken = jwt.sign(
         {
-            "doctor_info": {
-                "doctor_id": doctor._id,
+            "info": {
+                "id": doctor._id,
                 "email": doctor.email,
             }
         },
@@ -61,7 +63,7 @@ const loginDoctor = async (req, res) => {
     )
 
     const refreshToken = jwt.sign(
-        { "doctor_id": doctor._id },
+        { "id": doctor._id },
         process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: '1d'}
     )
@@ -86,9 +88,10 @@ const loginPatient = async (req, res) => {
 
     const accessToken = jwt.sign(
         {
-            "patient_info": {
-                "patient_id": patient._id,
+            "info": {
+                "id": patient._id,
                 "email": patient.email,
+                "is_superuser": patient.is_superuser
             }
         },
         process.env.ACCESS_TOKEN_SECRET,
@@ -96,7 +99,7 @@ const loginPatient = async (req, res) => {
     )
 
     const refreshToken = jwt.sign(
-        { "patient_id": patient._id },
+        { "id": patient._id },
         process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: '1d'}
     )

@@ -9,8 +9,17 @@ const verifyJWT = (req, res, next) => {
         process.env.ACCESS_TOKEN_SECRET_KEY,
         (err, decoded) => {
             if (err) return res.sendStatus(403)
-            req.user = decoded.UserInfo.username
-            req.roles = decoded.UserInfo.roles
+            req.user = decoded.info.id
+            req.email = decoded.info.email
+            if (decoded.info?.role) {
+                req.role = decoded.info.role
+            }
+            if (decoded.info?.is_admin) {
+                req.is_admin = decoded.info.is_admin
+            }
+            if (decoded.info?.is_superuser) {
+                req.is_superuser = decoded.info.is_superuser
+            }
             next()
         }
     )

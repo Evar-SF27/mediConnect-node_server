@@ -1,7 +1,5 @@
-const { Types } = require('mongoose')
 const Doctor = require('../models/Doctor')
 const Hospital = require('../models/Hospital')
-const bcrypt = require('bcrypt')
 
 const getDoctor = async (req, res) => {
     const doctor = await Doctor.find()
@@ -14,37 +12,6 @@ const getDoctorById = async (req, res) => {
 
     const doctor = await Doctor.findOne({ _id: id }).exec()
     res.status(200).json({ "message": doctor })
-}
-
-const registerDoctor = async (req, res) => {
-    const { first_name, last_name, email, password, qualification, specialty, hospital_id } = req.body
-    if (!first_name || !last_name || !specialty || !email || !password || !qualification || !hospital_id) return res.status(400).json({ "message": "Some required information is missing" })
-    
-    const duplicateDoctor = await Doctor.findOne({ email }).exec()
-    if (duplicateDoctor) return res.status(409).json({ "message": "Doctor already exists" })
-
-    try {
-        const hospital = await Hospital.findOne({ _id: new Types.ObjectId(hospital_id) }).exec()
-        if(!hospital) return res.status(400).json({ "message": "Hospital doesn't exist" })
-
-        const hashedPassword = await bcrypt.hash(password, 10)
-        const result = await Doctor.create({
-            "first_name": first_name,
-            "last_name": last_name,
-            "email": email,
-            "password": hashedPassword,
-            "qualification": qualification,
-            "specialty": specialty,
-            "hospital_id": hospital_id
-        })
-
-        hospital.doctor_list = [...hospital.doctor_list, result._id]
-        await hospital.save()
-        res.status(201).json(result)
-        
-    } catch (err) {
-        res.status(500).json({ "message": err.message })
-    }
 }
 
 const updateDoctor = async (req, res) => {
@@ -87,4 +54,4 @@ const deleteDoctor = async (req, res) => {
     res.status(200).json({ "message": "Doctor was successfully deleted" })
 }
 
-module.exports = { getDoctor, getDoctorById, registerDoctor, updateDoctor, deleteDoctor  }
+module.exports = { getDoctor, getDoctorById, updateDoctor, deleteDoctor  }
