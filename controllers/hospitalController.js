@@ -2,7 +2,7 @@ const Hospital = require('../models/Hospital')
 
 const fetchHospitals = async (req, res) => {
     const hospitals = await Hospital.find()
-    res.json(hospitals)
+    res.status(200).json({ "message": hospitals })
 }
 
 const fetchHospitalById = async (req, res) => {
@@ -13,7 +13,7 @@ const fetchHospitalById = async (req, res) => {
         return res.status(204).json({ 'message': `Hospital ID not found` })
     }
 
-    res.status(200).json(hospital)
+    res.status(200).json({ "message": hospital })
 }
 
 const fetchHospitalByName = async (req, res) => {
@@ -25,7 +25,7 @@ const fetchHospitalByName = async (req, res) => {
         return res.status(204).json({ 'message': `Hospital ID not found` })
     }
 
-    res.status(200).json(hospital)
+    res.status(200).json({ "message": hospital })
 }
 
 const createHospital = async (req, res) => {
