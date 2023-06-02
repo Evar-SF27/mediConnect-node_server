@@ -5,6 +5,15 @@ const getPatient = async (req, res) => {
     res.status(200).json({ "message": patient })
 }
 
+const getPatientIdByEmail = async (req, res) => {
+    const { email } = req.params;
+    if(!email) return res.status(404).json({ "message": "Email is required" });
+
+    const patient = await Patient.findOne({ email }).exec();
+    res.status(200).json({ "message": patient._id });
+
+}
+
 const getPatientById = async (req, res) => {
     const { id } = req.params
     if (!id) return res.status(400).json({ "message": "Doctor ID is required" })
@@ -46,4 +55,4 @@ const deletePatient = async (req, res) => {
     res.status(200).json({ "message": "Patient was successfully deleted" })
 }
 
-module.exports = { getPatient, getPatientById, updatePatient, deletePatient  }
+module.exports = { getPatient, getPatientById, getPatientIdByEmail, updatePatient, deletePatient  }

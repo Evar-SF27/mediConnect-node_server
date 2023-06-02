@@ -8,5 +8,6 @@ router.route("/")
     .delete(patientController.deletePatient)
 
 router.route("/:id").get(patientController.getPatientById)
+router.route("/email/:id").get(patientController.getPatientIdByEmail)
 
 module.exports = router
