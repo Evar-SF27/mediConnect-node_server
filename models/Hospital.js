@@ -7,7 +7,7 @@ const hospitalSchema = new Schema({
     doctor_list: [{ type: String }],
     staff_list: [{ type: String }],
     admin_list: [{ type: String }],
-    location: { type: String, required: true },
+    location: { type: String },
     description: { type: String },
     rating: { type: String },
     created_at: { type: Date, required: true, default: Date.now },
